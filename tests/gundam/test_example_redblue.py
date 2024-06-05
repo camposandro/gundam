@@ -9,16 +9,14 @@ Make sure to first unzip ./samples_data/red_blue_all.zip, which contains
 the 3 .cnt files
 """
 import matplotlib.pyplot as plt
-import gundam as gun
+from gundam import gundam as gun
 import os, sys
 
 # DEFINE DATA
-fred  = './examples_data/red.cnt'
-fblue = './examples_data/blue.cnt'
-fall  = './examples_data/all.cnt' 
+fred  = 'tests/data/red_blue_all/red.cnt'
+fblue = 'tests/data/red_blue_all/blue.cnt'
+fall  = 'tests/data/red_blue_all/all.cnt'
 
-if (not(os.path.isfile(fred)) or not(os.path.isfile(fblue)) or not(os.path.isfile(fall))):
-    sys.exit('Make sure to unzip first "./samples_data/red_blue_all.zip"')
 # MAKE COMPARISON CF PLOT (no need to read .cnt explicitly)
 f, ax1, ax2 = gun.comparecf([fred, fblue, fall], [fall], plotratio=True, fill=True)
 

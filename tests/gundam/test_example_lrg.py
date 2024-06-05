@@ -1,31 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-Example code to estimate a projected correlation function
+Example code to estimate a 2D projected correlation function using a sample
+of SDSS Luminous Red Galaxies
 """
 from astropy.table import Table
-import gundam as gun
+from gundam import gundam as gun
 
 # DEFINE PARAMETERS  ==========================================================
-galf   = './examples_data/DATA.fits'     # Galaxy sample
-ranf   = './examples_data/RAND.fits'     # Random sample
-outfn  = './examples_data/ex_pcf_01'     # Name for output files
+galf   = 'tests/data/DR7-lrg.fits'       # Galaxy sample
+ranf   = 'tests/data/DR7-lrg-rand.fits'  # Random sample
+outfn  = 'tests/data/ex_LRG'             # Name for output files
+
 par = gun.packpars(kind='pcf', file=galf, file1=ranf, outfn=outfn)
-par.autogrid    = True        # Automatic SK grid size
-par.mxh1        = 20          # SK size in dec
-par.mxh2        = 100         # SK size in ra
-par.mxh3        = 10          # SK size in z
-par.nsepp       = 28          # Number of bins of projected separation rp
-par.seppmin     = 0.02        # Minimum rp in Mpc/h
-par.dsepp       = 0.12        # Bin size of rp (in log space)
-par.nsepv       = 1           # Number of bins of LOS separation pi
-par.dsepv       = 40.         # Bin size of pi (in linear space)
+par.autogrid    = False       # Automatic SK grid size
+par.mxh1        = 60          # SK size in dec
+par.mxh2        = 240         # SK size in ra
+par.mxh3        = 24          # SK size in z
+par.nsepp       = 78          # Number of bins of projected separation rp
+par.seppmin     = 0.01        # Minimum rp in Mpc/h 
+par.dsepp       = 0.5         # Bin size of rp (in log space)
+par.logsepp     = 0           # Use linear bins instead of log bins
+par.nsepv       = 60          # Number of bins of LOS separation pi
+par.dsepv       = 0.5         # Bin size of pi (in linear space)
 par.doboot      = True        # Do bootstrap error estimates
 par.omegam      = 0.25        # Omega matter
 par.omegal      = 0.75        # Omega lambda
 par.h0          = 100         # Hubble constant [km/s/Mpc]
 par.calcdist    = True        # Calculate comov. dist.
 par.estimator   = 'LS'        # Choose Landy-Szalay estimator for the PCF
-par.description = 'example01' # Description label
+par.description = 'LumRedGxs' # Description label
 
 # READ DATA FILES  ============================================================
 print('Reading file: ', galf)
@@ -39,6 +42,8 @@ if 'wei' not in rans.colnames:  rans['wei'] = 1. #If not present, set weights to
 #==============================================================================
 # CALCULATE THE CORRELATION
 nt  = 4   # Threads to use
-cnt = gun.pcf(gals, rans, par, nthreads=nt, plot=True, write=True)
+cnt = gun.pcf(gals, rans, par, nthreads=nt)
 #==============================================================================
 
+# NOW PLOT THE 2-DIMENSIONAL PCF  =============================================
+gun.cntplot2D(cnt, write=True)

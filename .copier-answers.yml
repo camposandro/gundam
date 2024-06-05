@@ -18,6 +18,6 @@ project_license: none
 project_name: gundam
 project_organization: samotracio
 python_versions:
+- '3.9'
 - '3.10'
 - '3.11'
-- '3.12'

@@ -1,0 +1,18 @@
+{
+    "benchmarks.time_example_lrg": {
+        "code": "def time_example_lrg():\n    # DEFINE PARAMETERS  ==========================================================\n    galf = f'{TEST_DATA_DIR}/DR7-lrg.fits'  # Galaxy sample\n    ranf = f'{TEST_DATA_DIR}/DR7-lrg-rand.fits'  # Random sample\n    outfn = f'{TEST_DATA_DIR}/ex_LRG'  # Name for output files\n\n    par = gun.packpars(kind='pcf', file=galf, file1=ranf, outfn=outfn)\n    par.autogrid = False  # Automatic SK grid size\n    par.mxh1 = 60  # SK size in dec\n    par.mxh2 = 240  # SK size in ra\n    par.mxh3 = 24  # SK size in z\n    par.nsepp = 78  # Number of bins of projected separation rp\n    par.seppmin = 0.01  # Minimum rp in Mpc/h\n    par.dsepp = 0.5  # Bin size of rp (in log space)\n    par.logsepp = 0  # Use linear bins instead of log bins\n    par.nsepv = 60  # Number of bins of LOS separation pi\n    par.dsepv = 0.5  # Bin size of pi (in linear space)\n    par.doboot = True  # Do bootstrap error estimates\n    par.omegam = 0.25  # Omega matter\n    par.omegal = 0.75  # Omega lambda\n    par.h0 = 100  # Hubble constant [km/s/Mpc]\n    par.calcdist = True  # Calculate comov. dist.\n    par.estimator = 'LS'  # Choose Landy-Szalay estimator for the PCF\n    par.description = 'LumRedGxs'  # Description label\n\n    # READ DATA FILES  ============================================================\n    print('Reading file: ', galf)\n    gals = Table.read(galf)\n    if 'wei' not in gals.colnames:  gals['wei'] = 1.  # If not present, set weights to 1\n\n    print('Reading file: ', ranf)\n    rans = Table.read(ranf)\n    if 'wei' not in rans.colnames:  rans['wei'] = 1.  # If not present, set weights to 1\n\n    # ==============================================================================\n    # CALCULATE THE CORRELATION\n    nt = 4  # Threads to use\n    gun.pcf(gals, rans, par, nthreads=nt)\n    # ==============================================================================",
+        "min_run_count": 2,
+        "name": "benchmarks.time_example_lrg",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "b64b8a156f73eec548a3782554c5e4fc9eba63d2bab6e883599dfb24b58ea266",
+        "warmup_time": -1
+    },
+    "version": 2
+}

@@ -46,4 +46,4 @@ cnt = gun.pcf(gals, rans, par, nthreads=nt)
 #==============================================================================
 
 # NOW PLOT THE 2-DIMENSIONAL PCF  =============================================
-gun.cntplot2D(cnt, write=True)
+#gun.cntplot2D(cnt, write=True)

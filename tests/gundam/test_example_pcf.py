@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 Example code to estimate a projected correlation function
 """
-from astropy.table import Table
 import gundam as gun
+from astropy.table import Table
 
 # DEFINE PARAMETERS  ==========================================================
 galf = "tests/data/DATA.fits"  # Galaxy sample

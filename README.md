@@ -1,4 +1,4 @@
-# <img src="./docs/images/images/banner.png">
+# <img src="./docs/images/banner.png">
 
 A package to count galaxy pairs at light speed and estimate 2-point correlation functions 
 of large galaxy samples or mock catalogs, that works with angular, projected and

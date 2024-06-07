@@ -55,7 +55,14 @@ jobs:
         export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion | awk -F '.' '{print $1"."0}')
         echo "MACOSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}" >> $GITHUB_ENV
 
-    - name: Set CIBW envs
+    # Support AMD64 architecture for Windows
+    - name: Set CIBW envs on Windows
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        "CIBW_BUILD=${{ matrix.cibw_build }}" >> $env:GITHUB_ENV
+        "CIBW_ARCHS=AMD64" >> $env:GITHUB_ENV
+
+    - name: Set CIBW envs for Linux and MacOS
       run: |
         echo "CIBW_BUILD=${{ matrix.cibw_build }}" >> $GITHUB_ENV
         CIBW_ARCHS=$(echo ${{ matrix.cibw_build }} | cut -d'_' -f2,3)
@@ -76,6 +83,7 @@ jobs:
       run: pipx run build --sdist
     - uses: actions/upload-artifact@v4
       with:
+        name: artifact-${{ matrix.cibw_build }}
         path: dist/*.tar.gz
 
   publish:
@@ -86,7 +94,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v4
       with:
-        name: artifact
+        name: artifact-${{ matrix.cibw_build }}
         path: dist
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1

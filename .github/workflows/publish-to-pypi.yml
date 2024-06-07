@@ -22,19 +22,45 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-13, macos-14 ]
+        include:
+          - os: macos-12
+            cibw_build: cp39-macosx_x86_64
+          - os: macos-14
+            cibw_build: cp39-macosx_arm64
+          - os: windows-2019
+            cibw_build: cp39-win_amd64
+          - os: ubuntu-20.04
+            cibw_build: cp39-manylinux_x86_64
+          - os: ubuntu-20.04
+            cibw_build: cp39-manylinux_aarch64
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
     - name: Set up QEMU
       if: ${{ runner.os == 'Linux' }}
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
       with:
         platforms: all
+
     - uses: fortran-lang/setup-fortran@v1
       id: setup-fortran
       with:
         compiler: gcc
         version: 11
+
+    - name: Set MACOSX_DEPLOYMENT_TARGET to the current macOS version
+      if: ${{ runner.os == 'macOS' }}
+      run: |
+        export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion | awk -F '.' '{print $1"."0}')
+        echo "MACOSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}" >> $GITHUB_ENV
+
+    - name: Set CIBW envs
+      run: |
+        echo "CIBW_BUILD=${{ matrix.cibw_build }}" >> $GITHUB_ENV
+        CIBW_ARCHS=$(echo ${{ matrix.cibw_build }} | cut -d'_' -f2,3)
+        echo "CIBW_ARCHS=${CIBW_ARCHS}" >> $GITHUB_ENV
+
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.18.1
     - uses: actions/upload-artifact@v4

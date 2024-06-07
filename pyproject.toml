@@ -1,5 +1,5 @@
 [project]
-name = "gundam"
+name = "gundam-test"
 license = {file = "LICENSE"}
 readme = "README.md"
 authors = [

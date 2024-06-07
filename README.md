@@ -1,5 +1,13 @@
 # <img src="./docs/images/banner.png">
 
+[![Template](<https://img.shields.io/badge/Template-LINCC%20Frameworks%20Python%20Project%20Template-brightgreen>)](<https://lincc-ppt.readthedocs.io/en/latest/>)
+[![PyPI](<https://img.shields.io/pypi/v/gundam?color=blue&logo=pypi&logoColor=white>)](<https://pypi.org/project/gundam/>)
+[![Read the Docs](<https://img.shields.io/readthedocs/gundam>)](<https://gundam.readthedocs.io/>)
+[![Actions Status](https://github.com/camposandro/gundam/actions/workflows/testing-and-coverage.yml/badge.svg)](<https://gundam.readthedocs.io/>)
+[![Documentation Status](https://github.com/camposandro/gundam/actions/workflows/build-documentation.yml/badge.svg)](<https://gundam.readthedocs.io/>)
+[![Linter Status](https://github.com/camposandro/gundam/actions/workflows/pre-commit-ci.yml/badge.svg)](<https://gundam.readthedocs.io/>)
+[![Coverage Status](https://codecov.io/gh/camposandro/gundam/branch/main/graph/badge.svg)](<https://codecov.io/gh/camposandro/gundam>)
+
 A package to count galaxy pairs at light speed and estimate 2-point correlation functions 
 of large galaxy samples or mock catalogs, that works with angular, projected and
 redshift-space coordinates. Its main features are:

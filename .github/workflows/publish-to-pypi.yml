@@ -27,8 +27,6 @@ jobs:
             cibw_build: cp39-macosx_x86_64
           - os: macos-14
             cibw_build: cp39-macosx_arm64
-          - os: windows-2019
-            cibw_build: cp39-win_amd64
           - os: ubuntu-20.04
             cibw_build: cp39-manylinux_x86_64
           - os: ubuntu-20.04
@@ -55,15 +53,7 @@ jobs:
         export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion | awk -F '.' '{print $1"."0}')
         echo "MACOSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}" >> $GITHUB_ENV
 
-    # Support AMD64 architecture for Windows
-    - name: Set CIBW envs on Windows
-      if: ${{ runner.os == 'Windows' }}
-      run: |
-        "CIBW_BUILD=${{ matrix.cibw_build }}" >> $env:GITHUB_ENV
-        "CIBW_ARCHS=AMD64" >> $env:GITHUB_ENV
-
     - name: Set CIBW envs for Linux and MacOS
-      if: ${{ runner.os != 'Windows' }}
       run: |
         echo "CIBW_BUILD=${{ matrix.cibw_build }}" >> $GITHUB_ENV
         CIBW_ARCHS=$(echo ${{ matrix.cibw_build }} | cut -d'_' -f2,3)

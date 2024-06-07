@@ -13,9 +13,9 @@ include_benchmarks: false
 include_docs: true
 include_notebooks: true
 mypy_type_checking: none
-package_name: gundam
+package_name: gundamtest
 project_license: none
-project_name: gundam
+project_name: gundamtest
 project_organization: samotracio
 python_versions:
 - '3.9'

@@ -5,8 +5,8 @@ find_package(Python COMPONENTS Interpreter Development.Module NumPy REQUIRED)
 find_package(OpenMP)
 
 set(module_name cflibfor)
-set(PYF_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/gundam/${module_name}.pyf")
-set(FORTRAN_SRC "${CMAKE_CURRENT_SOURCE_DIR}/src/gundam/${module_name}.f90")
+set(PYF_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/gundamtest/${module_name}.pyf")
+set(FORTRAN_SRC "${CMAKE_CURRENT_SOURCE_DIR}/src/gundamtest/${module_name}.f90")
 
 # Grab the variables from a local Python installation
 # F2PY headers

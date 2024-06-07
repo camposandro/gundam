@@ -2,7 +2,7 @@
 Example code to compare two pre-made correlations (red and blue galaxies)
 against a control correlation (all galaxies) and fitt two powerlaws
 """
-from gundam import gundam as gun
+from gundamtest import gundamtest as gun
 
 # DEFINE DATA
 fred = "tests/data/red_blue_all/red.cnt"

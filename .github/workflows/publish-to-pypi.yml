@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build_wheels:
-    name: Wheels on ${{ matrix.os }} with CIBW_ARCHS=${{ matrix.archs }}
+    name: Wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -37,8 +37,6 @@ jobs:
         version: 11
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.18.1
-      env:
-        CIBW_ARCHS: ${{ matrix.archs }}
     - uses: actions/upload-artifact@v4
       with:
         path: wheelhouse/*.whl

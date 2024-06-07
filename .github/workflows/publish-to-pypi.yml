@@ -63,6 +63,7 @@ jobs:
         "CIBW_ARCHS=AMD64" >> $env:GITHUB_ENV
 
     - name: Set CIBW envs for Linux and MacOS
+      if: ${{ runner.os != 'Windows' }}
       run: |
         echo "CIBW_BUILD=${{ matrix.cibw_build }}" >> $GITHUB_ENV
         CIBW_ARCHS=$(echo ${{ matrix.cibw_build }} | cut -d'_' -f2,3)
